@@ -266,5 +266,6 @@ If you find this project useful, please consider giving it a star on GitHub!
 ---
 
 Built with ❤️ using vanilla HTML, CSS, and JavaScript
-#   P a s s w o r d - G e n e r a t o r  
+#   P a s s w o r d - G e n e r a t o r 
+ 
  
