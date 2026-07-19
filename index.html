@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Generate secure passwords and instantly evaluate their security using modern cybersecurity standards. Free online password generator and strength checker.">
+    <meta name="keywords" content="password generator, password strength checker, secure password, cybersecurity, password security, random password">
+    <meta name="author" content="Password Generator">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="Password Generator & Strength Checker">
+    <meta property="og:description" content="Generate secure passwords and instantly evaluate their security using modern cybersecurity standards.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://yourusername.github.io/password-generator/">
+    
+    <title>Password Generator & Strength Checker | Secure Password Tool</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔐</text></svg>">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <i class="fas fa-shield-alt"></i>
+                <span>SecurePass</span>
+            </div>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="#generator" class="nav-link">Password Generator</a></li>
+                <li><a href="#strength-checker" class="nav-link">Strength Checker</a></li>
+                <li><a href="#security-tips" class="nav-link">Security Tips</a></li>
+                <li><a href="#faq" class="nav-link">FAQ</a></li>
+                <li>
+                    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                </li>
+            </ul>
+            <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <div class="hero-bg">
+            <div class="floating-icon icon-1"><i class="fas fa-lock"></i></div>
+            <div class="floating-icon icon-2"><i class="fas fa-key"></i></div>
+            <div class="floating-icon icon-3"><i class="fas fa-shield-alt"></i></div>
+            <div class="floating-icon icon-4"><i class="fas fa-user-shield"></i></div>
+            <div class="floating-icon icon-5"><i class="fas fa-lock"></i></div>
+        </div>
+        <div class="container">
+            <div class="hero-grid">
+                <div class="hero-content">
+                    <span class="eyebrow"><i class="fas fa-shield-alt"></i> Password security toolkit</span>
+                    <h1>Generate passwords that hold up.<br>Check the ones you already have.</h1>
+                    <p>Build strong, memorable passwords with precise character control, then run any password through the same entropy and pattern analysis security teams use.</p>
+                    <div class="hero-buttons">
+                        <a href="#generator" class="btn btn-primary">
+                            <i class="fas fa-plus"></i> Generate Password
+                        </a>
+                        <a href="#strength-checker" class="btn btn-secondary">
+                            <i class="fas fa-chart-line"></i> Check Strength
+                        </a>
+                    </div>
+                    <div class="hero-meta">
+                        <div class="hero-meta-item"><i class="fas fa-microchip"></i> Runs entirely in your browser</div>
+                        <div class="hero-meta-item"><i class="fas fa-eye-slash"></i> Nothing sent, nothing stored</div>
+                    </div>
+                </div>
+                <div class="hero-panel" aria-hidden="true">
+                    <div class="console-card">
+                        <div class="console-head">
+                            <span class="console-dot"></span>
+                            <span class="console-dot"></span>
+                            <span class="console-dot"></span>
+                            <span class="console-title">password.out</span>
+                        </div>
+                        <div class="console-body">
+                            <div class="console-line"><span class="console-prompt">$</span> generate --length 18</div>
+                            <div class="console-result">Tr9#kLp2Vq!mZx4Rw&</div>
+                            <div class="console-row">
+                                <span>Length</span><span class="console-value">18 chars</span>
+                            </div>
+                            <div class="console-row">
+                                <span>Crack time</span><span class="console-value">centuries</span>
+                            </div>
+                            <div class="console-row">
+                                <span>Verdict</span><span class="console-value console-good">STRONG</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Password Generator Section -->
+    <section class="section" id="generator">
+        <div class="container">
+            <div class="section-header">
+                <h2>Password Generator</h2>
+                <p>Generate cryptographically secure random passwords with advanced options</p>
+            </div>
+            
+            <div class="generator-card">
+                <div class="generator-controls">
+                    <div class="control-group">
+                        <label for="passwordLength">
+                            <i class="fas fa-ruler"></i> Password Length
+                            <span class="value-display" id="lengthValue">16</span>
+                        </label>
+                        <input type="range" id="passwordLength" min="8" max="30" value="16" class="slider">
+                        <div class="range-labels">
+                            <span>8</span>
+                            <span>30</span>
+                        </div>
+                    </div>
+
+                    <div class="character-toggles">
+                        <div class="toggle-item">
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="includeUppercase" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                            <span class="toggle-label">Uppercase (A-Z)</span>
+                        </div>
+                        <div class="toggle-item">
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="includeLowercase" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                            <span class="toggle-label">Lowercase (a-z)</span>
+                        </div>
+                        <div class="toggle-item">
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="includeNumbers" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                            <span class="toggle-label">Numbers (0-9)</span>
+                        </div>
+                        <div class="toggle-item">
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="includeSpecial" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                            <span class="toggle-label">Special Characters</span>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label for="specialCharSet">
+                            <i class="fas fa-asterisk"></i> Special Character Set
+                        </label>
+                        <select id="specialCharSet" class="dropdown">
+                            <option value="default" selected>All Symbols (!@#$%^&*()_+-=[]{}|;:,.<>?)</option>
+                            <option value="common">Common Symbols (@ # $ %)</option>
+                            <option value="programming">Programming Symbols ({} [] () <> = + - _)</option>
+                            <option value="minimal">Minimal (@ #)</option>
+                            <option value="custom">Custom</option>
+                        </select>
+                    </div>
+
+                    <div class="control-group" id="customSpecialGroup" style="display: none;">
+                        <label for="customSpecialChars">
+                            <i class="fas fa-edit"></i> Custom Special Characters
+                        </label>
+                        <input type="text" id="customSpecialChars" placeholder="Enter your custom special characters" class="text-input">
+                    </div>
+
+                    <div class="error-message" id="configError"></div>
+                </div>
+
+                <!-- Generate Button -->
+                <button class="btn btn-generate" id="generateBtn">
+                    <i class="fas fa-magic"></i> Generate Password
+                </button>
+
+                <!-- Password Output -->
+                <div class="password-output" id="passwordOutput">
+                    <div class="password-display">
+                        <input type="password" id="generatedPassword" readonly placeholder="Click Generate to create password">
+                        <button class="toggle-password" id="togglePassword" aria-label="Toggle password visibility">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                    <div class="password-actions">
+                        <button class="btn-action" id="copyPassword" aria-label="Copy password">
+                            <i class="fas fa-copy"></i> Copy
+                        </button>
+                        <button class="btn-action" id="downloadPassword" aria-label="Download password">
+                            <i class="fas fa-download"></i> Download
+                        </button>
+                        <button class="btn-action" id="generateAgain" aria-label="Generate new password">
+                            <i class="fas fa-redo"></i> Generate Again
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Password Statistics -->
+                <div class="password-stats" id="passwordStats">
+                    <h3>Password Statistics</h3>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <i class="fas fa-text-width"></i>
+                            <span class="stat-label">Length</span>
+                            <span class="stat-value" id="statLength">-</span>
+                        </div>
+                        <div class="stat-item">
+                            <i class="fas fa-font"></i>
+                            <span class="stat-label">Uppercase</span>
+                            <span class="stat-value" id="statUppercase">-</span>
+                        </div>
+                        <div class="stat-item">
+                            <i class="fas fa-font"></i>
+                            <span class="stat-label">Lowercase</span>
+                            <span class="stat-value" id="statLowercase">-</span>
+                        </div>
+                        <div class="stat-item">
+                            <i class="fas fa-hashtag"></i>
+                            <span class="stat-label">Numbers</span>
+                            <span class="stat-value" id="statNumbers">-</span>
+                        </div>
+                        <div class="stat-item">
+                            <i class="fas fa-asterisk"></i>
+                            <span class="stat-label">Special</span>
+                            <span class="stat-value" id="statSpecial">-</span>
+                        </div>
+                        <div class="stat-item">
+                            <i class="fas fa-fingerprint"></i>
+                            <span class="stat-label">Diversity</span>
+                            <span class="stat-value" id="statDiversity">-</span>
+                        </div>
+                        <div class="stat-item">
+                            <i class="fas fa-chart-pie"></i>
+                            <span class="stat-label">Entropy</span>
+                            <span class="stat-value" id="statEntropy">-</span>
+                        </div>
+                        <div class="stat-item">
+                            <i class="fas fa-clock"></i>
+                            <span class="stat-label">Crack Time</span>
+                            <span class="stat-value" id="statCrackTime">-</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Live Strength Analysis -->
+                <div class="strength-analysis" id="strengthAnalysis">
+                    <div class="strength-header">
+                        <h3>Strength Analysis</h3>
+                        <div class="strength-score-display">
+                            <span class="score-value" id="strengthScore">0</span>
+                            <span class="score-total">/ 100</span>
+                        </div>
+                    </div>
+                    <div class="strength-label" id="strengthLabel">Generate a password</div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" id="progressBar"></div>
+                    </div>
+                </div>
+
+                <!-- Advanced Options -->
+                <div class="advanced-options">
+                    <button class="advanced-toggle" id="advancedToggle">
+                        <i class="fas fa-cog"></i> Advanced Settings
+                        <i class="fas fa-chevron-down" id="advancedIcon"></i>
+                    </button>
+                    <div class="advanced-content" id="advancedContent">
+                        <div class="advanced-item">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="avoidSimilar">
+                                <span class="checkbox-custom"></span>
+                                <span>Avoid Similar Characters (O, 0, I, l, 1)</span>
+                            </label>
+                        </div>
+                        <div class="advanced-item">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="excludeDuplicates">
+                                <span class="checkbox-custom"></span>
+                                <span>Exclude Duplicate Characters</span>
+                            </label>
+                        </div>
+                        <div class="advanced-item">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="excludeSequential">
+                                <span class="checkbox-custom"></span>
+                                <span>Exclude Sequential Characters (abc, 123)</span>
+                            </label>
+                        </div>
+                        <div class="advanced-item">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="excludeRepeating">
+                                <span class="checkbox-custom"></span>
+                                <span>Exclude Consecutive Repeating Characters</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Password History -->
+                <div class="password-history" id="passwordHistory">
+                    <div class="history-header">
+                        <h3>Password History</h3>
+                        <button class="btn-clear" id="clearHistory">
+                            <i class="fas fa-trash"></i> Clear History
+                        </button>
+                    </div>
+                    <div class="history-list" id="historyList">
+                        <p class="empty-history">No passwords generated yet</p>
+                    </div>
+                </div>
+
+                <!-- Security Tips -->
+                <div class="security-tips-card">
+                    <h3><i class="fas fa-shield-alt"></i> Security Tips</h3>
+                    <ul class="tips-list">
+                        <li><i class="fas fa-check"></i> Longer passwords are more secure. 16+ characters are recommended.</li>
+                        <li><i class="fas fa-check"></i> Use unique passwords for every account.</li>
+                        <li><i class="fas fa-check"></i> Store passwords in a secure password manager.</li>
+                        <li><i class="fas fa-check"></i> Enable two-factor authentication when available.</li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Password Strength Checker Section -->
+    <section class="section" id="strength-checker">
+        <div class="container">
+            <div class="section-header">
+                <h2>Password Strength Checker</h2>
+                <p>Analyze your password's security with advanced cybersecurity metrics</p>
+            </div>
+
+            <div class="strength-card">
+                <div class="password-input-group">
+                    <div class="input-wrapper">
+                        <input type="password" id="checkPassword" placeholder="Type or paste your password here">
+                        <button class="toggle-check-password" id="toggleCheckPassword" aria-label="Toggle password visibility">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                    <button class="btn btn-analyze" id="analyzeBtn">
+                        <i class="fas fa-search"></i> Analyze Password
+                    </button>
+                </div>
+
+                <!-- Strength Score Display -->
+                <div class="strength-display" id="strengthDisplay">
+                    <div class="circular-progress">
+                        <svg class="progress-ring" viewBox="0 0 120 120">
+                            <circle class="progress-ring-bg" cx="60" cy="60" r="54"></circle>
+                            <circle class="progress-ring-circle" id="progressCircle" cx="60" cy="60" r="54"></circle>
+                        </svg>
+                        <div class="progress-text">
+                            <span class="score-value" id="checkStrengthScore">0</span>
+                            <span class="score-total">/ 100</span>
+                        </div>
+                    </div>
+                    <div class="strength-label" id="checkStrengthLabel">Enter a password</div>
+                </div>
+
+                <!-- Progress Bar -->
+                <div class="progress-bar-container">
+                    <div class="progress-bar" id="progressBar"></div>
+                </div>
+
+                <!-- Security Checklist -->
+                <div class="security-checklist" id="securityChecklist">
+                    <h3>Security Checklist</h3>
+                    <div class="checklist-items">
+                        <div class="checklist-item" data-check="min8">
+                            <i class="fas fa-circle"></i>
+                            <span>Minimum 8 Characters</span>
+                        </div>
+                        <div class="checklist-item" data-check="min12">
+                            <i class="fas fa-circle"></i>
+                            <span>Recommended 12+ Characters</span>
+                        </div>
+                        <div class="checklist-item" data-check="uppercase">
+                            <i class="fas fa-circle"></i>
+                            <span>Uppercase Letter</span>
+                        </div>
+                        <div class="checklist-item" data-check="lowercase">
+                            <i class="fas fa-circle"></i>
+                            <span>Lowercase Letter</span>
+                        </div>
+                        <div class="checklist-item" data-check="number">
+                            <i class="fas fa-circle"></i>
+                            <span>Number</span>
+                        </div>
+                        <div class="checklist-item" data-check="special">
+                            <i class="fas fa-circle"></i>
+                            <span>Special Character</span>
+                        </div>
+                        <div class="checklist-item" data-check="diversity">
+                            <i class="fas fa-circle"></i>
+                            <span>Character Diversity</span>
+                        </div>
+                        <div class="checklist-item" data-check="entropy">
+                            <i class="fas fa-circle"></i>
+                            <span>High Entropy</span>
+                        </div>
+                        <div class="checklist-item" data-check="norepeat">
+                            <i class="fas fa-circle"></i>
+                            <span>No Repeated Characters</span>
+                        </div>
+                        <div class="checklist-item" data-check="nosequential">
+                            <i class="fas fa-circle"></i>
+                            <span>No Sequential Characters</span>
+                        </div>
+                        <div class="checklist-item" data-check="nokeyboard">
+                            <i class="fas fa-circle"></i>
+                            <span>No Keyboard Patterns</span>
+                        </div>
+                        <div class="checklist-item" data-check="nocommon">
+                            <i class="fas fa-circle"></i>
+                            <span>Not Common Password</span>
+                        </div>
+                        <div class="checklist-item" data-check="nodictionary">
+                            <i class="fas fa-circle"></i>
+                            <span>No Dictionary Words</span>
+                        </div>
+                        <div class="checklist-item" data-check="nopersonal">
+                            <i class="fas fa-circle"></i>
+                            <span>No Personal Information</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Password Statistics -->
+                <div class="password-stats" id="checkStats">
+                    <h3>Password Statistics</h3>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <i class="fas fa-text-width"></i>
+                            <span class="stat-label">Length</span>
+                            <span class="stat-value" id="checkLength">-</span>
+                        </div>
+                        <div class="stat-item">
+                            <i class="fas fa-font"></i>
+                            <span class="stat-label">Uppercase</span>
+                            <span class="stat-value" id="checkUppercase">-</span>
+                        </div>
+                        <div class="stat-item">
+                            <i class="fas fa-font"></i>
+                            <span class="stat-label">Lowercase</span>
+                            <span class="stat-value" id="checkLowercase">-</span>
+                        </div>
+                        <div class="stat-item">
+                            <i class="fas fa-hashtag"></i>
+                            <span class="stat-label">Numbers</span>
+                            <span class="stat-value" id="checkNumbers">-</span>
+                        </div>
+                        <div class="stat-item">
+                            <i class="fas fa-asterisk"></i>
+                            <span class="stat-label">Special</span>
+                            <span class="stat-value" id="checkSpecial">-</span>
+                        </div>
+                        <div class="stat-item">
+                            <i class="fas fa-fingerprint"></i>
+                            <span class="stat-label">Unique</span>
+                            <span class="stat-value" id="checkUnique">-</span>
+                        </div>
+                        <div class="stat-item">
+                            <i class="fas fa-chart-pie"></i>
+                            <span class="stat-label">Entropy</span>
+                            <span class="stat-value" id="checkEntropy">-</span>
+                        </div>
+                        <div class="stat-item">
+                            <i class="fas fa-clock"></i>
+                            <span class="stat-label">Crack Time</span>
+                            <span class="stat-value" id="checkCrackTime">-</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Improvement Suggestions -->
+                <div class="suggestions" id="suggestions">
+                    <h3>Improvement Suggestions</h3>
+                    <div class="suggestions-list" id="suggestionsList">
+                        <p class="no-suggestions">Enter a password to see suggestions</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Security Tips Section -->
+    <section class="section" id="security-tips">
+        <div class="container">
+            <div class="section-header">
+                <h2>Password Security Tips</h2>
+                <p>Best practices to keep your accounts secure</p>
+            </div>
+
+            <div class="tips-grid">
+                <div class="tip-card">
+                    <div class="tip-icon">
+                        <i class="fas fa-fingerprint"></i>
+                    </div>
+                    <h3>Never Reuse Passwords</h3>
+                    <p>Use unique passwords for each account to prevent credential stuffing attacks.</p>
+                </div>
+
+                <div class="tip-card">
+                    <div class="tip-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3>Enable Multi-Factor Authentication</h3>
+                    <p>Add an extra layer of security with 2FA/MFA on all your important accounts.</p>
+                </div>
+
+                <div class="tip-card">
+                    <div class="tip-icon">
+                        <i class="fas fa-key"></i>
+                    </div>
+                    <h3>Use Password Managers</h3>
+                    <p>Store passwords securely in encrypted vaults instead of writing them down.</p>
+                </div>
+
+                <div class="tip-card">
+                    <div class="tip-icon">
+                        <i class="fas fa-user-secret"></i>
+                    </div>
+                    <h3>Avoid Personal Information</h3>
+                    <p>Don't use birthdays, names, or personal details that can be easily guessed.</p>
+                </div>
+
+                <div class="tip-card">
+                    <div class="tip-icon">
+                        <i class="fas fa-sync-alt"></i>
+                    </div>
+                    <h3>Update Passwords Regularly</h3>
+                    <p>Change critical passwords every 3-6 months or after any security breach.</p>
+                </div>
+
+                <div class="tip-card">
+                    <div class="tip-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Create Unique Passwords</h3>
+                    <p>Use long, complex passwords with a mix of characters for maximum security.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="section" id="faq">
+        <div class="container">
+            <div class="section-header">
+                <h2>Frequently Asked Questions</h2>
+                <p>Common questions about password security</p>
+            </div>
+
+            <div class="faq-container">
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>What is a Strong Password?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>A strong password is at least 12 characters long, includes a mix of uppercase and lowercase letters, numbers, and special characters. It should avoid dictionary words, personal information, and common patterns. Strong passwords have high entropy and are difficult to guess or crack.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Why Avoid Dictionary Words?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Dictionary words are vulnerable to dictionary attacks, where hackers use lists of common words and phrases to guess passwords. Even with substitutions (like replacing 'a' with '@'), these passwords can be cracked quickly. Random character combinations are much more secure.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Why Use Symbols?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Special characters significantly increase the complexity of passwords. They expand the character set from just 26 letters to over 90 possible characters, dramatically increasing the number of possible combinations and making brute force attacks much more difficult and time-consuming.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>How Often Should Passwords Change?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Modern security guidelines suggest changing passwords only when there's a suspected breach or compromise. For critical accounts, consider updating every 3-6 months. Focus on creating strong, unique passwords rather than frequent changes, which can lead to weaker password choices.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Why Should You Use a Password Manager?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Using a password manager helps you securely store and organize your passwords in one encrypted vault. It allows you to create long, unique passwords for every account without needing to remember them all. Most password managers also offer features such as password generation, autofill, breach alerts, and secure synchronization across devices. This greatly improves both convenience and online security.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>SecurePass</span>
+                </div>
+                <p class="footer-text">Generate secure passwords and protect your digital life</p>
+                <div class="footer-links">
+                    <a href="#generator">Password Generator</a>
+                    <a href="#strength-checker">Strength Checker</a>
+                    <a href="#security-tips">Security Tips</a>
+                    <a href="#faq">FAQ</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 SecurePass. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+        <i class="fas fa-check-circle"></i>
+        <span id="toastMessage">Password copied successfully</span>
+    </div>
+
+    <!-- Custom JavaScript -->
+    <script src="script.js"></script>
+</body>
+</html>
