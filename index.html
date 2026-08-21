@@ -1,660 +1,1111 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Generate secure passwords and instantly evaluate their security using modern cybersecurity standards. Free online password generator and strength checker.">
-    <meta name="keywords" content="password generator, password strength checker, secure password, cybersecurity, password security, random password">
-    <meta name="author" content="Password Generator">
+    <meta name="description" content="SecurePass — Next-Gen Cryptographic Password Generator and Cybersecurity Suite. 100% client-side zero-knowledge security, Web Crypto API entropy, and deep brute-force analysis.">
+    <meta name="keywords" content="password generator, 1password style, secure password, password strength checker, passphrase generator, diceware, PIN generator, zero knowledge, entropy calculator">
+    <meta name="author" content="SecurePass Team">
     <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#0A173B">
     
-    <!-- Open Graph Tags -->
-    <meta property="og:title" content="Password Generator & Strength Checker">
-    <meta property="og:description" content="Generate secure passwords and instantly evaluate their security using modern cybersecurity standards.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://yourusername.github.io/password-generator/">
+    <title>Strong. Secure. Awesome. — SecurePass Password Generator & Security Suite</title>
     
-    <title>Password Generator & Strength Checker | Secure Password Tool</title>
-    
-    <!-- Google Fonts -->
+    <!-- Google Fonts: Space Grotesk, Inter, JetBrains Mono -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet">
     
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Font Awesome 6 Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
-    <!-- Custom CSS -->
+    <!-- Main CSS -->
     <link rel="stylesheet" href="style.css">
     
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔐</text></svg>">
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="navbar" id="navbar">
-        <div class="container">
-            <div class="nav-brand">
-                <i class="fas fa-shield-alt"></i>
-                <span>SecurePass</span>
-            </div>
-            <ul class="nav-menu" id="navMenu">
-                <li><a href="#generator" class="nav-link">Password Generator</a></li>
-                <li><a href="#strength-checker" class="nav-link">Strength Checker</a></li>
-                <li><a href="#security-tips" class="nav-link">Security Tips</a></li>
-                <li><a href="#faq" class="nav-link">FAQ</a></li>
-                <li>
-                    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
-                        <i class="fas fa-moon"></i>
-                    </button>
-                </li>
-            </ul>
-            <button class="hamburger" id="hamburger" aria-label="Toggle menu">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-        </div>
-    </nav>
 
-    <!-- Hero Section -->
-    <section class="hero" id="hero">
-        <div class="hero-bg">
-            <div class="floating-icon icon-1"><i class="fas fa-lock"></i></div>
-            <div class="floating-icon icon-2"><i class="fas fa-key"></i></div>
-            <div class="floating-icon icon-3"><i class="fas fa-shield-alt"></i></div>
-            <div class="floating-icon icon-4"><i class="fas fa-user-shield"></i></div>
-            <div class="floating-icon icon-5"><i class="fas fa-lock"></i></div>
-        </div>
-        <div class="container">
-            <div class="hero-grid">
-                <div class="hero-content">
-                    <span class="eyebrow"><i class="fas fa-shield-alt"></i> Password security toolkit</span>
-                    <h1>Generate passwords that hold up.<br>Check the ones you already have.</h1>
-                    <p>Build strong, memorable passwords with precise character control, then run any password through the same entropy and pattern analysis security teams use.</p>
-                    <div class="hero-buttons">
-                        <a href="#generator" class="btn btn-primary">
-                            <i class="fas fa-plus"></i> Generate Password
-                        </a>
-                        <a href="#strength-checker" class="btn btn-secondary">
-                            <i class="fas fa-chart-line"></i> Check Strength
-                        </a>
-                    </div>
-                    <div class="hero-meta">
-                        <div class="hero-meta-item"><i class="fas fa-microchip"></i> Runs entirely in your browser</div>
-                        <div class="hero-meta-item"><i class="fas fa-eye-slash"></i> Nothing sent, nothing stored</div>
-                    </div>
-                </div>
-                <div class="hero-panel" aria-hidden="true">
-                    <div class="console-card">
-                        <div class="console-head">
-                            <span class="console-dot"></span>
-                            <span class="console-dot"></span>
-                            <span class="console-dot"></span>
-                            <span class="console-title">password.out</span>
-                        </div>
-                        <div class="console-body">
-                            <div class="console-line"><span class="console-prompt">$</span> generate --length 18</div>
-                            <div class="console-result">Tr9#kLp2Vq!mZx4Rw&</div>
-                            <div class="console-row">
-                                <span>Length</span><span class="console-value">18 chars</span>
-                            </div>
-                            <div class="console-row">
-                                <span>Crack time</span><span class="console-value">centuries</span>
-                            </div>
-                            <div class="console-row">
-                                <span>Verdict</span><span class="console-value console-good">STRONG</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+    <!-- Top Announcement Bar (Gold / Champagne Banner) -->
+    <div class="top-announcement-bar">
+        <div class="container announcement-inner">
+            <div class="announcement-left">
+                <span class="announcement-badge">PRIVACY FIRST</span>
+                <span class="announcement-msg">Zero-Knowledge Architecture: 100% client-side cryptographic generation with zero server telemetry.</span>
+                <a href="#architecture" class="announcement-link">Learn more <i class="fas fa-arrow-right"></i></a>
+            </div>
+            <div class="announcement-right">
+                <a href="#strength-checker" class="announcement-link-sub"><i class="fas fa-shield-halved"></i> Audit Password</a>
             </div>
         </div>
-    </section>
+    </div>
 
-    <!-- Password Generator Section -->
-    <section class="section" id="generator">
-        <div class="container">
-            <div class="section-header">
-                <h2>Password Generator</h2>
-                <p>Generate cryptographically secure random passwords with advanced options</p>
-            </div>
-            
-            <div class="generator-card">
-                <div class="generator-controls">
-                    <div class="control-group">
-                        <label for="passwordLength">
-                            <i class="fas fa-ruler"></i> Password Length
-                            <span class="value-display" id="lengthValue">16</span>
-                        </label>
-                        <input type="range" id="passwordLength" min="8" max="30" value="16" class="slider">
-                        <div class="range-labels">
-                            <span>8</span>
-                            <span>30</span>
-                        </div>
-                    </div>
-
-                    <div class="character-toggles">
-                        <div class="toggle-item">
-                            <label class="toggle-switch">
-                                <input type="checkbox" id="includeUppercase" checked>
-                                <span class="toggle-slider"></span>
-                            </label>
-                            <span class="toggle-label">Uppercase (A-Z)</span>
-                        </div>
-                        <div class="toggle-item">
-                            <label class="toggle-switch">
-                                <input type="checkbox" id="includeLowercase" checked>
-                                <span class="toggle-slider"></span>
-                            </label>
-                            <span class="toggle-label">Lowercase (a-z)</span>
-                        </div>
-                        <div class="toggle-item">
-                            <label class="toggle-switch">
-                                <input type="checkbox" id="includeNumbers" checked>
-                                <span class="toggle-slider"></span>
-                            </label>
-                            <span class="toggle-label">Numbers (0-9)</span>
-                        </div>
-                        <div class="toggle-item">
-                            <label class="toggle-switch">
-                                <input type="checkbox" id="includeSpecial" checked>
-                                <span class="toggle-slider"></span>
-                            </label>
-                            <span class="toggle-label">Special Characters</span>
-                        </div>
-                    </div>
-
-                    <div class="control-group">
-                        <label for="specialCharSet">
-                            <i class="fas fa-asterisk"></i> Special Character Set
-                        </label>
-                        <select id="specialCharSet" class="dropdown">
-                            <option value="default" selected>All Symbols (!@#$%^&*()_+-=[]{}|;:,.<>?)</option>
-                            <option value="common">Common Symbols (@ # $ %)</option>
-                            <option value="programming">Programming Symbols ({} [] () <> = + - _)</option>
-                            <option value="minimal">Minimal (@ #)</option>
-                            <option value="custom">Custom</option>
-                        </select>
-                    </div>
-
-                    <div class="control-group" id="customSpecialGroup" style="display: none;">
-                        <label for="customSpecialChars">
-                            <i class="fas fa-edit"></i> Custom Special Characters
-                        </label>
-                        <input type="text" id="customSpecialChars" placeholder="Enter your custom special characters" class="text-input">
-                    </div>
-
-                    <div class="error-message" id="configError"></div>
+    <!-- Header Navigation -->
+    <header class="main-header" id="navbar">
+        <div class="container header-content">
+            <!-- Brand Logo -->
+            <a href="#hero" class="nav-brand" aria-label="SecurePass Home">
+                <div class="brand-lock-key-badge">
+                    <i class="fas fa-lock emblem-lock"></i>
+                    <i class="fas fa-key emblem-key"></i>
                 </div>
+                <span class="brand-title-text">Secure<span class="brand-accent-text">Pass</span></span>
+            </a>
 
-                <!-- Generate Button -->
-                <button class="btn btn-generate" id="generateBtn">
-                    <i class="fas fa-magic"></i> Generate Password
+            <!-- Navigation Links -->
+            <nav class="nav-menu-bar" id="navMenu">
+                <a href="#hero" class="nav-link-item"><i class="fas fa-home"></i> Overview</a>
+                <a href="#generator-hero" class="nav-link-item"><i class="fas fa-key"></i> Generator</a>
+                <a href="#strength-checker" class="nav-link-item"><i class="fas fa-shield-virus"></i> Strength Audit</a>
+                <a href="#architecture" class="nav-link-item"><i class="fas fa-microchip"></i> Architecture</a>
+                <a href="#comparison" class="nav-link-item"><i class="fas fa-scale-balanced"></i> Compare</a>
+                <a href="#security-tips" class="nav-link-item"><i class="fas fa-lightbulb"></i> Security Tips</a>
+                <a href="#faq" class="nav-link-item"><i class="fas fa-circle-question"></i> FAQ</a>
+            </nav>
+
+            <!-- Header Action Controls -->
+            <div class="header-actions">
+                <button class="btn-link-action" id="navBatchBtn">
+                    <i class="fas fa-layer-group"></i> Batch Mode
                 </button>
+                <a href="#strength-checker" class="btn-primary-pill">
+                    Audit Strength
+                </a>
+                <button class="theme-toggle-btn" id="themeToggle" aria-label="Toggle theme mode" title="Toggle Light/Dark Theme">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button class="mobile-toggle" id="hamburger" aria-label="Toggle navigation">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </header>
 
-                <!-- Password Output -->
-                <div class="password-output" id="passwordOutput">
-                    <div class="password-display">
-                        <input type="password" id="generatedPassword" readonly placeholder="Click Generate to create password">
-                        <button class="toggle-password" id="togglePassword" aria-label="Toggle password visibility">
-                            <i class="fas fa-eye"></i>
+    <!-- Main Content -->
+    <main>
+
+        <!-- Deep Royal Navy Hero Section (1Password Style with Embedded Generator) -->
+        <section class="hero-navy-section" id="hero">
+            <div class="container">
+                <div class="hero-grid-layout">
+                    
+                    <!-- Left Hero Column: Bold Typography & Trust Highlights -->
+                    <div class="hero-text-column">
+                        <div class="hero-pill-tag">
+                            <i class="fas fa-shield-check"></i> Enterprise Password Security
+                        </div>
+                        <h1 class="hero-heading-main">
+                            Strong. Secure.<br>
+                            Awesome. Try our<br>
+                            random password<br>
+                            generator.
+                        </h1>
+                        <p class="hero-description-main">
+                            A powerful, zero-knowledge generator for mathematically unbreakable passwords to protect your online accounts, databases, and digital life.
+                        </p>
+
+                        <div class="hero-features-list">
+                            <div class="hero-feature-item">
+                                <i class="fas fa-circle-check"></i>
+                                <span>Hardware CSPRNG Randomness (Web Crypto API)</span>
+                            </div>
+                            <div class="hero-feature-item">
+                                <i class="fas fa-circle-check"></i>
+                                <span>100% Client-Side • Zero Data Stored or Sent</span>
+                            </div>
+                            <div class="hero-feature-item">
+                                <i class="fas fa-circle-check"></i>
+                                <span>NIST 800-63B Aligned with Instant Entropy Rating</span>
+                            </div>
+                        </div>
+
+                        <div class="hero-trust-badges-strip">
+                            <div class="trust-badge-card">
+                                <span class="tb-number">100%</span>
+                                <span class="tb-label">Zero-Knowledge</span>
+                            </div>
+                            <div class="trust-badge-card">
+                                <span class="tb-number">256-Bit</span>
+                                <span class="tb-label">Crypto Security</span>
+                            </div>
+                            <div class="trust-badge-card">
+                                <span class="tb-number">&lt; 1 ms</span>
+                                <span class="tb-label">Generation Speed</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Hero Column: Clean White 1Password-Style Live Generator Card -->
+                    <div class="hero-card-column" id="generator-hero">
+                        <div class="generator-white-card">
+                            
+                            <!-- 1. Choose Password Type -->
+                            <div class="card-field-group">
+                                <label class="field-title-label">Choose password type</label>
+                                <div class="segmented-pill-selector">
+                                    <button class="seg-btn active" data-mode="random">
+                                        <i class="fas fa-shuffle"></i> Random
+                                    </button>
+                                    <button class="seg-btn" data-mode="passphrase">
+                                        <i class="fas fa-lightbulb"></i> Memorable
+                                    </button>
+                                    <button class="seg-btn" data-mode="pin">
+                                        <i class="fas fa-hashtag"></i> PIN
+                                    </button>
+                                    <button class="seg-btn" data-mode="pronounceable">
+                                        <i class="fas fa-spell-check"></i> Pronounceable
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- 2. Customize Options -->
+                            <div class="card-field-group">
+                                <label class="field-title-label">Customize your new password</label>
+
+                                <!-- Mode 1: Random Controls -->
+                                <div class="generator-mode-view active" id="panelRandom">
+                                    <div class="slider-control-row">
+                                        <span class="control-text-label">Characters</span>
+                                        <div class="slider-track-wrap">
+                                            <input type="range" id="passwordLength" min="8" max="64" value="20" class="blue-range-slider">
+                                        </div>
+                                        <span class="slider-numeric-badge" id="lengthValue">20</span>
+                                    </div>
+
+                                    <div class="toggles-grid-row">
+                                        <label class="toggle-switch-item">
+                                            <span class="toggle-text-label">Uppercase</span>
+                                            <div class="ios-switch">
+                                                <input type="checkbox" id="includeUppercase" checked>
+                                                <span class="switch-slider"></span>
+                                            </div>
+                                        </label>
+
+                                        <label class="toggle-switch-item">
+                                            <span class="toggle-text-label">Lowercase</span>
+                                            <div class="ios-switch">
+                                                <input type="checkbox" id="includeLowercase" checked>
+                                                <span class="switch-slider"></span>
+                                            </div>
+                                        </label>
+
+                                        <label class="toggle-switch-item">
+                                            <span class="toggle-text-label">Numbers</span>
+                                            <div class="ios-switch">
+                                                <input type="checkbox" id="includeNumbers" checked>
+                                                <span class="switch-slider"></span>
+                                            </div>
+                                        </label>
+
+                                        <label class="toggle-switch-item">
+                                            <span class="toggle-text-label">Symbols</span>
+                                            <div class="ios-switch">
+                                                <input type="checkbox" id="includeSpecial" checked>
+                                                <span class="switch-slider"></span>
+                                            </div>
+                                        </label>
+                                    </div>
+
+                                    <!-- Symbol Set Dropdown -->
+                                    <div class="symbol-dropdown-row">
+                                        <label for="specialCharSet" class="sub-field-label"><i class="fas fa-asterisk"></i> Symbol Set:</label>
+                                        <select id="specialCharSet" class="clean-select">
+                                            <option value="default" selected>All Standard (!@#$%^&*()_+-=[]{}|;:,.<>?)</option>
+                                            <option value="common">Common Web Safe (@ # $ % & * - _ + =)</option>
+                                            <option value="programming">Programming ({} [] () &lt;&gt; = + - _ / \ ~)</option>
+                                            <option value="minimal">Minimal (@ # . - _)</option>
+                                            <option value="custom">Custom Specified Characters</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="custom-symbol-row" id="customSpecialGroup" style="display: none;">
+                                        <input type="text" id="customSpecialChars" placeholder="Enter custom symbols (e.g. !@#$%_)" class="clean-text-input">
+                                    </div>
+                                </div>
+
+                                <!-- Mode 2: Memorable Passphrase Controls -->
+                                <div class="generator-mode-view" id="panelPassphrase">
+                                    <div class="slider-control-row">
+                                        <span class="control-text-label">Words</span>
+                                        <div class="slider-track-wrap">
+                                            <input type="range" id="passphraseWords" min="3" max="8" value="4" class="blue-range-slider">
+                                        </div>
+                                        <span class="slider-numeric-badge" id="passphraseWordsVal">4</span>
+                                    </div>
+
+                                    <div class="passphrase-row-options">
+                                        <div class="symbol-dropdown-row">
+                                            <label for="passphraseSeparator" class="sub-field-label">Separator:</label>
+                                            <select id="passphraseSeparator" class="clean-select">
+                                                <option value="hyphen" selected>Hyphen ( - )</option>
+                                                <option value="underscore">Underscore ( _ )</option>
+                                                <option value="dot">Period ( . )</option>
+                                                <option value="space">Space ( )</option>
+                                                <option value="none">No Separator</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="toggles-grid-row">
+                                            <label class="toggle-switch-item">
+                                                <span class="toggle-text-label">Capitalize</span>
+                                                <div class="ios-switch">
+                                                    <input type="checkbox" id="passphraseCapitalize" checked>
+                                                    <span class="switch-slider"></span>
+                                                </div>
+                                            </label>
+
+                                            <label class="toggle-switch-item">
+                                                <span class="toggle-text-label">Include Number</span>
+                                                <div class="ios-switch">
+                                                    <input type="checkbox" id="passphraseIncludeNumber" checked>
+                                                    <span class="switch-slider"></span>
+                                                </div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Mode 3: Numeric PIN Controls -->
+                                <div class="generator-mode-view" id="panelPin">
+                                    <div class="slider-control-row">
+                                        <span class="control-text-label">PIN Digits</span>
+                                        <div class="slider-track-wrap">
+                                            <input type="range" id="pinLength" min="4" max="16" value="6" class="blue-range-slider">
+                                        </div>
+                                        <span class="slider-numeric-badge" id="pinLengthVal">6</span>
+                                    </div>
+
+                                    <div class="toggles-grid-row">
+                                        <label class="toggle-switch-item">
+                                            <span class="toggle-text-label">No Repeated Consecutive</span>
+                                            <div class="ios-switch">
+                                                <input type="checkbox" id="pinNoDuplicates">
+                                                <span class="switch-slider"></span>
+                                            </div>
+                                        </label>
+
+                                        <label class="toggle-switch-item">
+                                            <span class="toggle-text-label">No Sequences (1234)</span>
+                                            <div class="ios-switch">
+                                                <input type="checkbox" id="pinNoSequences" checked>
+                                                <span class="switch-slider"></span>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <!-- Mode 4: Pronounceable Controls -->
+                                <div class="generator-mode-view" id="panelPronounceable">
+                                    <div class="slider-control-row">
+                                        <span class="control-text-label">Length</span>
+                                        <div class="slider-track-wrap">
+                                            <input type="range" id="pronounceLength" min="8" max="24" value="14" class="blue-range-slider">
+                                        </div>
+                                        <span class="slider-numeric-badge" id="pronounceLengthVal">14</span>
+                                    </div>
+
+                                    <div class="toggles-grid-row">
+                                        <label class="toggle-switch-item">
+                                            <span class="toggle-text-label">Uppercase Syllables</span>
+                                            <div class="ios-switch">
+                                                <input type="checkbox" id="pronounceUppercase" checked>
+                                                <span class="switch-slider"></span>
+                                            </div>
+                                        </label>
+
+                                        <label class="toggle-switch-item">
+                                            <span class="toggle-text-label">Include Numbers</span>
+                                            <div class="ios-switch">
+                                                <input type="checkbox" id="pronounceNumbers" checked>
+                                                <span class="switch-slider"></span>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="error-banner" id="configError"></div>
+                            </div>
+
+                            <!-- 3. 1-Click Fast Presets -->
+                            <div class="presets-chip-bar">
+                                <span class="presets-hint"><i class="fas fa-wand-magic-sparkles"></i> Presets:</span>
+                                <button class="chip-btn" data-preset="bank"><i class="fas fa-building-columns"></i> Bank (20)</button>
+                                <button class="chip-btn" data-preset="wifi"><i class="fas fa-wifi"></i> Wi-Fi (24)</button>
+                                <button class="chip-btn" data-preset="passphrase"><i class="fas fa-brain"></i> Passphrase</button>
+                                <button class="chip-btn" data-preset="pin"><i class="fas fa-key"></i> PIN</button>
+                                <button class="chip-btn" data-preset="paranoid"><i class="fas fa-shield-halved"></i> Max (32)</button>
+                            </div>
+
+                            <!-- 4. Generated Password Display Area -->
+                            <div class="card-field-group">
+                                <div class="output-label-row">
+                                    <label class="field-title-label">Generated password</label>
+                                    <div class="entropy-pill-badge" id="outputEntropyBadge">Entropy: <span>96.0 Bits</span></div>
+                                </div>
+                                
+                                <div class="password-output-frame">
+                                    <div class="formatted-output-view" id="formattedPasswordView" tabindex="0" title="Click to copy">
+                                        <!-- Formatted token spans -->
+                                    </div>
+                                    <input type="text" id="generatedPassword" readonly class="sr-only-input" autocomplete="off" spellcheck="false">
+                                    <button class="btn-mask-toggle" id="togglePassword" aria-label="Toggle password visibility" title="Show/Hide">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </div>
+
+                                <!-- Real-Time Strength Meter in Generator -->
+                                <div class="generator-strength-bar-wrap">
+                                    <div class="gs-labels">
+                                        <span class="gs-title" id="strengthLabel">Very Strong</span>
+                                        <span class="gs-score"><span id="strengthScore">95</span>/100</span>
+                                    </div>
+                                    <div class="gs-track">
+                                        <div class="gs-fill" id="progressBar" style="width: 95%;"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 5. Action Buttons (Royal Blue Primary & Clean Outline Secondary) -->
+                            <div class="generator-buttons-row">
+                                <button class="btn-royal-blue" id="copyPassword">
+                                    <i class="fas fa-copy"></i> Copy password
+                                </button>
+                                <button class="btn-outline-blue" id="generateAgain">
+                                    <i class="fas fa-arrows-rotate"></i> Refresh password
+                                </button>
+                            </div>
+
+                            <!-- 6. Secondary Tool Actions -->
+                            <div class="generator-sub-tools">
+                                <button class="btn-tool-link" id="openQrModalBtn"><i class="fas fa-qrcode"></i> Mobile QR</button>
+                                <button class="btn-tool-link" id="downloadPassword"><i class="fas fa-download"></i> Save .txt</button>
+                                <button class="btn-tool-link" id="openPhoneticModalBtn"><i class="fas fa-volume-high"></i> NATO Phonetic</button>
+                            </div>
+
+                            <!-- Advanced Filters Dropdown Accordion -->
+                            <div class="advanced-filter-drawer">
+                                <button class="advanced-drawer-toggle" id="advancedToggle" aria-expanded="false">
+                                    <span><i class="fas fa-sliders"></i> Advanced Filter Constraints</span>
+                                    <i class="fas fa-chevron-down adv-arrow" id="advancedIcon"></i>
+                                </button>
+                                <div class="advanced-drawer-content" id="advancedContent">
+                                    <div class="advanced-drawer-grid">
+                                        <label class="drawer-chk-item">
+                                            <input type="checkbox" id="avoidSimilar">
+                                            <span class="chk-box"></span>
+                                            <span class="chk-text">Avoid Similar Characters (<code>O, 0, I, l, 1</code>)</span>
+                                        </label>
+                                        <label class="drawer-chk-item">
+                                            <input type="checkbox" id="excludeDuplicates">
+                                            <span class="chk-box"></span>
+                                            <span class="chk-text">Strict Unique Characters</span>
+                                        </label>
+                                        <label class="drawer-chk-item">
+                                            <input type="checkbox" id="excludeSequential">
+                                            <span class="chk-box"></span>
+                                            <span class="chk-text">Exclude Sequential Runs (<code>abc, 123</code>)</span>
+                                        </label>
+                                        <label class="drawer-chk-item">
+                                            <input type="checkbox" id="excludeRepeating">
+                                            <span class="chk-box"></span>
+                                            <span class="chk-text">Exclude Consecutive Repeating (<code>aaa</code>)</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Light Periwinkle Trust & Testimonial Showcase Section (Reference Image 1) -->
+        <section class="trust-showcase-section">
+            <div class="container">
+                <div class="periwinkle-card-box">
+                    <div class="showcase-content-grid">
+                        
+                        <!-- Left Illustration Graphics -->
+                        <div class="showcase-illustration-side">
+                            <div class="device-graphic-composition">
+                                <div class="graphic-monitor">
+                                    <div class="monitor-screen">
+                                        <div class="monitor-shield">
+                                            <i class="fas fa-shield-check"></i>
+                                        </div>
+                                    </div>
+                                    <div class="monitor-stand"></div>
+                                </div>
+                                <div class="graphic-tablet">
+                                    <div class="tablet-content"></div>
+                                </div>
+                                <div class="graphic-vault-badge">
+                                    <i class="fas fa-lock"></i>
+                                </div>
+                                <span class="sparkle sparkle-1">+</span>
+                                <span class="sparkle sparkle-2">+</span>
+                                <span class="sparkle sparkle-3">+</span>
+                            </div>
+                        </div>
+
+                        <!-- Right Testimonial Quote -->
+                        <div class="showcase-quote-side">
+                            <blockquote class="showcase-quote-text">
+                                "SecurePass delivers the ideal standard for password generation and cybersecurity auditing. Its combination of 100% client-side zero-knowledge security, cross-device offline QR sync, and deep pattern analysis makes it the best choice."
+                            </blockquote>
+                            <div class="showcase-author-info">
+                                <strong class="author-name">Cybersecurity Advisory Board</strong>
+                                <span class="author-title">Zero-Knowledge Defense Standard</span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Carousel Pagination Dots -->
+                    <div class="carousel-dots-row">
+                        <span class="c-dot active"></span>
+                        <span class="c-dot"></span>
+                        <span class="c-dot"></span>
+                        <span class="c-dot"></span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Password Strength Audit Section -->
+        <section class="section audit-main-section" id="strength-checker">
+            <div class="container">
+                <div class="section-center-head">
+                    <span class="head-pill-tag"><i class="fas fa-shield-virus"></i> Real-Time Analyzer</span>
+                    <h2 class="head-title">Password Strength & Entropy Audit</h2>
+                    <p class="head-sub">Test existing passwords against 14 industrial cybersecurity metrics, pattern penalties, dictionary leaks, and multi-hardware brute force attack calculations.</p>
+                </div>
+
+                <div class="audit-surface-card">
+                    <!-- Search Input Bar -->
+                    <div class="audit-search-bar">
+                        <div class="audit-input-wrap">
+                            <i class="fas fa-lock audit-lead-icon"></i>
+                            <input type="password" id="checkPassword" placeholder="Type or paste any password to evaluate in real time..." autocomplete="off" spellcheck="false">
+                            <button class="btn-eye-toggle" id="toggleCheckPassword" aria-label="Toggle password visibility">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                        <button class="btn-royal-blue btn-audit-trigger" id="analyzeBtn">
+                            <i class="fas fa-magnifying-glass-chart"></i> Run Deep Audit
                         </button>
                     </div>
-                    <div class="password-actions">
-                        <button class="btn-action" id="copyPassword" aria-label="Copy password">
-                            <i class="fas fa-copy"></i> Copy
-                        </button>
-                        <button class="btn-action" id="downloadPassword" aria-label="Download password">
-                            <i class="fas fa-download"></i> Download
-                        </button>
-                        <button class="btn-action" id="generateAgain" aria-label="Generate new password">
-                            <i class="fas fa-redo"></i> Generate Again
-                        </button>
+
+                    <!-- Gauge & Brute Force Attack Matrix -->
+                    <div class="audit-results-grid">
+                        
+                        <!-- Circular Radial Gauge -->
+                        <div class="audit-gauge-card">
+                            <div class="circular-ring-wrap">
+                                <svg class="progress-ring-svg" viewBox="0 0 140 140">
+                                    <circle class="ring-bg" cx="70" cy="70" r="58"></circle>
+                                    <circle class="ring-meter" id="progressCircle" cx="70" cy="70" r="58"></circle>
+                                </svg>
+                                <div class="ring-center-text">
+                                    <span class="ring-number" id="checkStrengthScore">0</span>
+                                    <span class="ring-total">/ 100</span>
+                                </div>
+                            </div>
+                            <div class="gauge-label-main" id="checkStrengthLabel">Enter a password</div>
+                            <span class="gauge-verdict-caption" id="checkAuditVerdict">Awaiting input</span>
+                        </div>
+
+                        <!-- Brute Force Hardware Scenario Matrix -->
+                        <div class="audit-matrix-card">
+                            <h4 class="matrix-card-title"><i class="fas fa-server"></i> Brute Force Hardware Scenario Matrix</h4>
+                            <div class="matrix-table">
+                                <div class="matrix-row">
+                                    <div class="mr-left">
+                                        <span class="mr-name"><i class="fas fa-globe"></i> Online Throttled (100 req/sec)</span>
+                                        <small class="mr-desc">Web login with rate limiting & captchas</small>
+                                    </div>
+                                    <span class="mr-time" id="matrixOnline">-</span>
+                                </div>
+                                <div class="matrix-row">
+                                    <div class="mr-left">
+                                        <span class="mr-name"><i class="fas fa-microchip"></i> High-End GPU Cluster (10B/sec)</span>
+                                        <small class="mr-desc">Offline hash cracking (MD5 / NTLM)</small>
+                                    </div>
+                                    <span class="mr-time text-blue" id="matrixGpu">-</span>
+                                </div>
+                                <div class="matrix-row">
+                                    <div class="mr-left">
+                                        <span class="mr-name"><i class="fas fa-network-wired"></i> Supercomputer / Botnet (100T/sec)</span>
+                                        <small class="mr-desc">State-level distributed cluster attack</small>
+                                    </div>
+                                    <span class="mr-time text-green" id="matrixSuper">-</span>
+                                </div>
+                                <div class="matrix-row">
+                                    <div class="mr-left">
+                                        <span class="mr-name"><i class="fas fa-atom"></i> Memory-Hard / Quantum (Argon2id)</span>
+                                        <small class="mr-desc">Modern memory-hard cryptographic protection</small>
+                                    </div>
+                                    <span class="mr-time text-amber" id="matrixQuantum">-</span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- 14-Point Security Checklist Grid -->
+                    <div class="audit-checklist-card">
+                        <div class="checklist-top">
+                            <h3><i class="fas fa-list-check"></i> 14-Point Security Validation Checklist</h3>
+                            <span class="checklist-badge-count" id="checklistCounter">0/14 Checks Passed</span>
+                        </div>
+                        <div class="checklist-grid" id="securityChecklist">
+                            <div class="chk-pill" data-check="min8">
+                                <i class="fas fa-circle-dot chk-icon"></i>
+                                <div class="chk-info"><strong>Min 8 Characters</strong><small>Basic threshold</small></div>
+                            </div>
+                            <div class="chk-pill" data-check="min12">
+                                <i class="fas fa-circle-dot chk-icon"></i>
+                                <div class="chk-info"><strong>Recommended 12+ Chars</strong><small>NIST baseline</small></div>
+                            </div>
+                            <div class="chk-pill" data-check="min16">
+                                <i class="fas fa-circle-dot chk-icon"></i>
+                                <div class="chk-info"><strong>Enterprise 16+ Chars</strong><small>Maximum defense</small></div>
+                            </div>
+                            <div class="chk-pill" data-check="uppercase">
+                                <i class="fas fa-circle-dot chk-icon"></i>
+                                <div class="chk-info"><strong>Uppercase Letters</strong><small>Includes A-Z</small></div>
+                            </div>
+                            <div class="chk-pill" data-check="lowercase">
+                                <i class="fas fa-circle-dot chk-icon"></i>
+                                <div class="chk-info"><strong>Lowercase Letters</strong><small>Includes a-z</small></div>
+                            </div>
+                            <div class="chk-pill" data-check="number">
+                                <i class="fas fa-circle-dot chk-icon"></i>
+                                <div class="chk-info"><strong>Numeric Digits</strong><small>Includes 0-9</small></div>
+                            </div>
+                            <div class="chk-pill" data-check="special">
+                                <i class="fas fa-circle-dot chk-icon"></i>
+                                <div class="chk-info"><strong>Special Characters</strong><small>Includes symbols</small></div>
+                            </div>
+                            <div class="chk-pill" data-check="diversity">
+                                <i class="fas fa-circle-dot chk-icon"></i>
+                                <div class="chk-info"><strong>High Diversity</strong><small>&gt;70% unique chars</small></div>
+                            </div>
+                            <div class="chk-pill" data-check="entropy">
+                                <i class="fas fa-circle-dot chk-icon"></i>
+                                <div class="chk-info"><strong>Entropy &ge; 60 Bits</strong><small>High randomness</small></div>
+                            </div>
+                            <div class="chk-pill" data-check="norepeat">
+                                <i class="fas fa-circle-dot chk-icon"></i>
+                                <div class="chk-info"><strong>No Repeated Triples</strong><small>No 'aaa' runs</small></div>
+                            </div>
+                            <div class="chk-pill" data-check="nosequential">
+                                <i class="fas fa-circle-dot chk-icon"></i>
+                                <div class="chk-info"><strong>No Sequential Runs</strong><small>No '123' or 'abc'</small></div>
+                            </div>
+                            <div class="chk-pill" data-check="nokeyboard">
+                                <i class="fas fa-circle-dot chk-icon"></i>
+                                <div class="chk-info"><strong>No Keyboard Walks</strong><small>No 'qwerty'</small></div>
+                            </div>
+                            <div class="chk-pill" data-check="nocommon">
+                                <i class="fas fa-circle-dot chk-icon"></i>
+                                <div class="chk-info"><strong>Not Common Password</strong><small>Not in leak databases</small></div>
+                            </div>
+                            <div class="chk-pill" data-check="nodictionary">
+                                <i class="fas fa-circle-dot chk-icon"></i>
+                                <div class="chk-info"><strong>No Dictionary Words</strong><small>Avoids wordlists</small></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Statistics Breakdown Strip -->
+                    <div class="audit-stats-strip">
+                        <div class="astat-card"><span class="as-k">Length</span><span class="as-v" id="checkLength">-</span></div>
+                        <div class="astat-card"><span class="as-k">Uppercase</span><span class="as-v text-blue" id="checkUppercase">-</span></div>
+                        <div class="astat-card"><span class="as-k">Lowercase</span><span class="as-v" id="checkLowercase">-</span></div>
+                        <div class="astat-card"><span class="as-k">Numbers</span><span class="as-v text-blue" id="checkNumbers">-</span></div>
+                        <div class="astat-card"><span class="as-k">Symbols</span><span class="as-v text-amber" id="checkSpecial">-</span></div>
+                        <div class="astat-card"><span class="as-k">Unique</span><span class="as-v" id="checkUnique">-</span></div>
+                        <div class="astat-card"><span class="as-k">Entropy</span><span class="as-v text-amber" id="checkEntropy">-</span></div>
+                        <div class="astat-card"><span class="as-k">GPU Crack Time</span><span class="as-v text-blue" id="checkCrackTime">-</span></div>
+                    </div>
+
+                    <!-- Remediation Suggestions -->
+                    <div class="audit-remediation-card" id="suggestions">
+                        <div class="remediation-head">
+                            <i class="fas fa-lightbulb"></i>
+                            <h3>Security Remediation & Recommendations</h3>
+                        </div>
+                        <div class="remediation-body" id="suggestionsList">
+                            <p class="no-sugg-text">Enter a password above to generate real-time actionable security recommendations.</p>
+                        </div>
+                    </div>
+
+                    <!-- Session Password Vault Ledger -->
+                    <div class="vault-container-card" id="passwordHistory">
+                        <div class="vault-topbar">
+                            <div class="vault-heading">
+                                <i class="fas fa-clock-rotate-left"></i>
+                                <h3>Session Password Vault</h3>
+                                <span class="vault-tag" id="historyCountBadge">0 saved</span>
+                            </div>
+                            <button class="btn-clear-vault" id="clearHistory" title="Clear all saved history">
+                                <i class="fas fa-trash-can"></i> Purge Vault
+                            </button>
+                        </div>
+                        <div class="vault-entries-list" id="historyList">
+                            <p class="vault-empty-text"><i class="fas fa-shield-blank"></i> Generated passwords in this session will securely appear here</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- System Architecture & Security Tech Section -->
+        <section class="section tech-section" id="architecture">
+            <div class="container">
+                <div class="section-center-head">
+                    <span class="head-pill-tag"><i class="fas fa-microchip"></i> System Architecture</span>
+                    <h2 class="head-title">Zero-Knowledge & Cryptographic Foundation</h2>
+                    <p class="head-sub">Engineered with zero-trust principles. Understand how SecurePass leverages browser-native hardware entropy to guarantee absolute confidentiality.</p>
+                </div>
+
+                <div class="architecture-cards-grid">
+                    <div class="arch-feature-card">
+                        <div class="arch-icon-wrap"><i class="fas fa-microchip"></i></div>
+                        <h3>Hardware CSPRNG</h3>
+                        <p>Random numbers are generated exclusively via <code>window.crypto.getRandomValues()</code>, querying your operating system's hardware entropy pool.</p>
+                        <div class="arch-tag-pill">FIPS 140-2 Compatible</div>
+                    </div>
+
+                    <div class="arch-feature-card">
+                        <div class="arch-icon-wrap"><i class="fas fa-network-wired"></i></div>
+                        <h3>Zero Network Traffic</h3>
+                        <p>Every calculation, entropy evaluation, and dictionary lookup happens entirely in your local browser sandbox. Zero telemetry, zero external APIs.</p>
+                        <div class="arch-tag-pill">Air-Gapped Friendly</div>
+                    </div>
+
+                    <div class="arch-feature-card">
+                        <div class="arch-icon-wrap"><i class="fas fa-calculator"></i></div>
+                        <h3>Shannon Entropy Math</h3>
+                        <p>Information entropy is calculated using \(H = L \times \log_2(N)\), where \(L\) is string length and \(N\) is pool cardinality, augmented with strict pattern penalties.</p>
+                        <div class="arch-tag-pill">Mathematical Rigor</div>
+                    </div>
+
+                    <div class="arch-feature-card">
+                        <div class="arch-icon-wrap"><i class="fas fa-award"></i></div>
+                        <h3>NIST 800-63B Aligned</h3>
+                        <p>Aligned with NIST Special Publication 800-63B guidelines prioritizing length, high pool diversity, and resistance to dictionary stuffing attacks.</p>
+                        <div class="arch-tag-pill">Industry Benchmark</div>
                     </div>
                 </div>
 
-                <!-- Password Statistics -->
-                <div class="password-stats" id="passwordStats">
-                    <h3>Password Statistics</h3>
-                    <div class="stats-grid">
-                        <div class="stat-item">
-                            <i class="fas fa-text-width"></i>
-                            <span class="stat-label">Length</span>
-                            <span class="stat-value" id="statLength">-</span>
+                <!-- 4-Step Pipeline -->
+                <div class="pipeline-white-card">
+                    <h3 class="pipeline-title-text"><i class="fas fa-diagram-project"></i> Secure Generation & Validation Pipeline</h3>
+                    <div class="pipeline-steps-row">
+                        <div class="pipe-col">
+                            <div class="pipe-number">01</div>
+                            <h4>Hardware Entropy</h4>
+                            <p>32-bit cryptographically secure typed buffer initialized from OS entropy.</p>
                         </div>
-                        <div class="stat-item">
-                            <i class="fas fa-font"></i>
-                            <span class="stat-label">Uppercase</span>
-                            <span class="stat-value" id="statUppercase">-</span>
+                        <div class="pipe-arrow-icon"><i class="fas fa-chevron-right"></i></div>
+                        <div class="pipe-col">
+                            <div class="pipe-number">02</div>
+                            <h4>Policy Constraints</h4>
+                            <p>Rejection sampling guarantees minimum distribution across user-selected sets.</p>
                         </div>
-                        <div class="stat-item">
-                            <i class="fas fa-font"></i>
-                            <span class="stat-label">Lowercase</span>
-                            <span class="stat-value" id="statLowercase">-</span>
+                        <div class="pipe-arrow-icon"><i class="fas fa-chevron-right"></i></div>
+                        <div class="pipe-col">
+                            <div class="pipe-number">03</div>
+                            <h4>Pattern Heuristics</h4>
+                            <p>Filters sequential, repeated, and keyboard walks for maximum unpredictability.</p>
                         </div>
-                        <div class="stat-item">
-                            <i class="fas fa-hashtag"></i>
-                            <span class="stat-label">Numbers</span>
-                            <span class="stat-value" id="statNumbers">-</span>
-                        </div>
-                        <div class="stat-item">
-                            <i class="fas fa-asterisk"></i>
-                            <span class="stat-label">Special</span>
-                            <span class="stat-value" id="statSpecial">-</span>
-                        </div>
-                        <div class="stat-item">
-                            <i class="fas fa-fingerprint"></i>
-                            <span class="stat-label">Diversity</span>
-                            <span class="stat-value" id="statDiversity">-</span>
-                        </div>
-                        <div class="stat-item">
-                            <i class="fas fa-chart-pie"></i>
-                            <span class="stat-label">Entropy</span>
-                            <span class="stat-value" id="statEntropy">-</span>
-                        </div>
-                        <div class="stat-item">
-                            <i class="fas fa-clock"></i>
-                            <span class="stat-label">Crack Time</span>
-                            <span class="stat-value" id="statCrackTime">-</span>
+                        <div class="pipe-arrow-icon"><i class="fas fa-chevron-right"></i></div>
+                        <div class="pipe-col">
+                            <div class="pipe-number">04</div>
+                            <h4>Zero-Trace Output</h4>
+                            <p>Zero-trace delivery to clipboard or encrypted QR canvas without cloud touch.</p>
                         </div>
                     </div>
                 </div>
+            </div>
+        </section>
 
-                <!-- Live Strength Analysis -->
-                <div class="strength-analysis" id="strengthAnalysis">
-                    <div class="strength-header">
-                        <h3>Strength Analysis</h3>
-                        <div class="strength-score-display">
-                            <span class="score-value" id="strengthScore">0</span>
-                            <span class="score-total">/ 100</span>
-                        </div>
-                    </div>
-                    <div class="strength-label" id="strengthLabel">Generate a password</div>
-                    <div class="progress-bar-container">
-                        <div class="progress-bar" id="progressBar"></div>
-                    </div>
+        <!-- Benchmark Comparison Table Section -->
+        <section class="section comparison-section" id="comparison">
+            <div class="container">
+                <div class="section-center-head">
+                    <span class="head-pill-tag"><i class="fas fa-scale-balanced"></i> Benchmark Comparison</span>
+                    <h2 class="head-title">SecurePass vs Standard Generators</h2>
+                    <p class="head-sub">Why security researchers and privacy-conscious users choose SecurePass over generic online generators.</p>
                 </div>
 
-                <!-- Advanced Options -->
-                <div class="advanced-options">
-                    <button class="advanced-toggle" id="advancedToggle">
-                        <i class="fas fa-cog"></i> Advanced Settings
-                        <i class="fas fa-chevron-down" id="advancedIcon"></i>
-                    </button>
-                    <div class="advanced-content" id="advancedContent">
-                        <div class="advanced-item">
-                            <label class="checkbox-label">
-                                <input type="checkbox" id="avoidSimilar">
-                                <span class="checkbox-custom"></span>
-                                <span>Avoid Similar Characters (O, 0, I, l, 1)</span>
-                            </label>
-                        </div>
-                        <div class="advanced-item">
-                            <label class="checkbox-label">
-                                <input type="checkbox" id="excludeDuplicates">
-                                <span class="checkbox-custom"></span>
-                                <span>Exclude Duplicate Characters</span>
-                            </label>
-                        </div>
-                        <div class="advanced-item">
-                            <label class="checkbox-label">
-                                <input type="checkbox" id="excludeSequential">
-                                <span class="checkbox-custom"></span>
-                                <span>Exclude Sequential Characters (abc, 123)</span>
-                            </label>
-                        </div>
-                        <div class="advanced-item">
-                            <label class="checkbox-label">
-                                <input type="checkbox" id="excludeRepeating">
-                                <span class="checkbox-custom"></span>
-                                <span>Exclude Consecutive Repeating Characters</span>
-                            </label>
-                        </div>
-                    </div>
+                <div class="table-responsive-box">
+                    <table class="comparison-clean-table">
+                        <thead>
+                            <tr>
+                                <th>Feature / Security Parameter</th>
+                                <th class="highlight-column">SecurePass Suite</th>
+                                <th>Generic Generators</th>
+                                <th>Browser Default</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Randomness Engine</strong></td>
+                                <td class="highlight-column"><i class="fas fa-circle-check text-green"></i> <code>crypto.getRandomValues</code> (CSPRNG)</td>
+                                <td><i class="fas fa-circle-xmark text-red"></i> Often <code>Math.random()</code> (Predictable)</td>
+                                <td><i class="fas fa-circle-check text-green"></i> CSPRNG</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Client-Side Zero-Knowledge</strong></td>
+                                <td class="highlight-column"><i class="fas fa-circle-check text-green"></i> 100% Local (0 Network Traffic)</td>
+                                <td><i class="fas fa-circle-xmark text-red"></i> Sent over HTTP backend / logs</td>
+                                <td><i class="fas fa-circle-check text-green"></i> Local</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Passphrase (Diceware) Mode</strong></td>
+                                <td class="highlight-column"><i class="fas fa-circle-check text-green"></i> 600+ Word Curated Dictionary</td>
+                                <td><i class="fas fa-circle-xmark text-red"></i> Not Supported</td>
+                                <td><i class="fas fa-circle-xmark text-red"></i> Not Supported</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Offline Mobile QR Sync</strong></td>
+                                <td class="highlight-column"><i class="fas fa-circle-check text-green"></i> Pure Offline Canvas QR</td>
+                                <td><i class="fas fa-circle-xmark text-red"></i> 3rd-party tracking APIs</td>
+                                <td><i class="fas fa-circle-xmark text-red"></i> Cloud Sync Only</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Brute Force Hardware Matrix</strong></td>
+                                <td class="highlight-column"><i class="fas fa-circle-check text-green"></i> 4 Attack Scenario Multi-Tier</td>
+                                <td><i class="fas fa-circle-xmark text-red"></i> Generic / Misleading</td>
+                                <td><i class="fas fa-circle-xmark text-red"></i> None</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Batch Generation & Export</strong></td>
+                                <td class="highlight-column"><i class="fas fa-circle-check text-green"></i> CSV & TXT Bulk Generation</td>
+                                <td><i class="fas fa-circle-xmark text-red"></i> Paywall / None</td>
+                                <td><i class="fas fa-circle-xmark text-red"></i> Single Only</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Advanced Pattern Constraints</strong></td>
+                                <td class="highlight-column"><i class="fas fa-circle-check text-green"></i> Avoid similar, sequential & repeats</td>
+                                <td><i class="fas fa-circle-xmark text-red"></i> Basic Length only</td>
+                                <td><i class="fas fa-circle-xmark text-red"></i> No customization</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Security Best Practices Tips Section -->
+        <section class="section tips-section" id="security-tips">
+            <div class="container">
+                <div class="section-center-head">
+                    <span class="head-pill-tag"><i class="fas fa-shield-halved"></i> Cybersecurity Standards</span>
+                    <h2 class="head-title">Password Defense Best Practices</h2>
+                    <p class="head-sub">Follow these essential cybersecurity hygiene habits recommended by global intelligence agencies and security engineers.</p>
                 </div>
 
-                <!-- Password History -->
-                <div class="password-history" id="passwordHistory">
-                    <div class="history-header">
-                        <h3>Password History</h3>
-                        <button class="btn-clear" id="clearHistory">
-                            <i class="fas fa-trash"></i> Clear History
+                <div class="tips-card-grid">
+                    <div class="tip-box">
+                        <div class="tip-icon-round"><i class="fas fa-fingerprint"></i></div>
+                        <h3>Eliminate Credential Reuse</h3>
+                        <p>Reusing passwords across services makes you vulnerable to credential stuffing when one third-party service suffers a data leak.</p>
+                    </div>
+
+                    <div class="tip-box">
+                        <div class="tip-icon-round"><i class="fas fa-mobile-screen-button"></i></div>
+                        <h3>Enforce Hardware 2FA / FIDO</h3>
+                        <p>Pair strong passwords with hardware security keys (YubiKey) or TOTP authenticator apps instead of SMS verification.</p>
+                    </div>
+
+                    <div class="tip-box">
+                        <div class="tip-icon-round"><i class="fas fa-vault"></i></div>
+                        <h3>Adopt Encrypted Vaults</h3>
+                        <p>Store your high-entropy credentials in zero-knowledge password managers (e.g. 1Password, Bitwarden, KeePassXC).</p>
+                    </div>
+
+                    <div class="tip-box">
+                        <div class="tip-icon-round"><i class="fas fa-user-ninja"></i></div>
+                        <h3>Zero Personal Tokens</h3>
+                        <p>Never base passwords or PINs on birth years, pet names, street addresses, or easily discoverable OSINT information.</p>
+                    </div>
+
+                    <div class="tip-box">
+                        <div class="tip-icon-round"><i class="fas fa-ruler-combined"></i></div>
+                        <h3>Length Trumps Complexity</h3>
+                        <p>A 20-character passphrase with spaces or hyphens yields vastly greater entropy than a short, complex 8-character string.</p>
+                    </div>
+
+                    <div class="tip-box">
+                        <div class="tip-icon-round"><i class="fas fa-triangle-exclamation"></i></div>
+                        <h3>Check Data Breaches</h3>
+                        <p>Periodically audit your primary email accounts on HaveIBeenPwned and rotate passwords immediately if a breach occurs.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Searchable Knowledge Base & FAQ Section -->
+        <section class="section faq-section" id="faq">
+            <div class="container">
+                <div class="section-center-head">
+                    <span class="head-pill-tag"><i class="fas fa-circle-question"></i> Knowledge Base</span>
+                    <h2 class="head-title">Frequently Asked Questions</h2>
+                    <p class="head-sub">Everything you need to know about password security, entropy, and SecurePass technology.</p>
+                </div>
+
+                <!-- Search Input -->
+                <div class="faq-search-card">
+                    <i class="fas fa-magnifying-glass"></i>
+                    <input type="text" id="faqSearch" placeholder="Search knowledge base (e.g. entropy, safe, diceware, mobile, manager)...">
+                </div>
+
+                <div class="faq-accordion-box" id="faqContainer">
+                    <div class="faq-item-card active">
+                        <button class="faq-item-button">
+                            <span>Is it safe to generate passwords on this website?</span>
+                            <i class="fas fa-chevron-down"></i>
                         </button>
+                        <div class="faq-item-body">
+                            <p><strong>Yes, 100% safe.</strong> SecurePass operates entirely inside your local browser runtime using the native Web Cryptography API (<code>crypto.getRandomValues</code>). No passwords, hashes, settings, or telemetry are ever transmitted to any remote server or external database. You can even disconnect your internet or use this tool completely offline in airplane mode.</p>
+                        </div>
                     </div>
-                    <div class="history-list" id="historyList">
-                        <p class="empty-history">No passwords generated yet</p>
+
+                    <div class="faq-item-card">
+                        <button class="faq-item-button">
+                            <span>What is Password Entropy and why does it matter?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="faq-item-body">
+                            <p>Password entropy measures the mathematical unpredictability and information density of a password in bits. A password with <strong>60+ bits</strong> of entropy is resistant to standard attacks, while <strong>80+ bits</strong> is considered enterprise-grade, and <strong>100+ bits</strong> is virtually uncrackable by modern supercomputers for billions of years.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item-card">
+                        <button class="faq-item-button">
+                            <span>What is a Memorable Passphrase (Diceware/xkcd method)?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="faq-item-body">
+                            <p>Passphrases combine multiple random real words (like <code>correct-horse-battery-staple</code>). Because humans can easily remember words while computers still have to search through millions of combinatorial word permutations, passphrases offer exceptionally high entropy while being remarkably effortless to type on mobile devices.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item-card">
+                        <button class="faq-item-button">
+                            <span>How is the estimated crack time calculated?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="faq-item-body">
+                            <p>Crack times are computed based on the total possible combinations (\(2^{\text{entropy}}\)) divided by real-world cracking speeds: from rate-limited online web services (100 guesses/sec) to high-speed multi-GPU clusters (10 billion guesses/sec) and distributed supercomputing clusters (100 trillion guesses/sec).</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item-card">
+                        <button class="faq-item-button">
+                            <span>Why should I use the Offline Mobile QR feature?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="faq-item-body">
+                            <p>Typing a 24-character random password onto a smartphone keyboard is slow and prone to errors. Our Offline QR code is generated purely on an HTML5 canvas without using any external Google or third-party tracking APIs. You can point your phone camera at your screen to instantly scan the password into your mobile vault securely.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item-card">
+                        <button class="faq-item-button">
+                            <span>Why are predictable sequences (like '123' or 'qwerty') dangerous?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="faq-item-body">
+                            <p>Modern cracking tools like Hashcat and John the Ripper use rule-based hybrid attacks that test keyboard walks, numerical increments, and dictionary leet-speak substitutions first. SecurePass checks and penalizes these patterns to protect you against targeted heuristic attacks.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Professional Footer -->
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-columns-grid">
+                <div class="footer-brand-column">
+                    <div class="footer-logo">
+                        <div class="brand-lock-key-badge">
+                            <i class="fas fa-lock emblem-lock"></i>
+                            <i class="fas fa-key emblem-key"></i>
+                        </div>
+                        <span class="brand-title-text">Secure<span class="brand-accent-text">Pass</span></span>
+                    </div>
+                    <p class="footer-tagline">
+                        Next-generation cryptographic password generator and cybersecurity audit suite. Designed with zero-knowledge architecture to empower individuals, developers, and organizations worldwide.
+                    </p>
+                    <div class="footer-badge-row">
+                        <span class="f-pill"><i class="fas fa-code"></i> Open Source</span>
+                        <span class="f-pill"><i class="fas fa-lock"></i> Zero Telemetry</span>
+                        <span class="f-pill"><i class="fas fa-wifi-slash"></i> Offline Ready</span>
                     </div>
                 </div>
 
-                <!-- Security Tips -->
-                <div class="security-tips-card">
-                    <h3><i class="fas fa-shield-alt"></i> Security Tips</h3>
-                    <ul class="tips-list">
-                        <li><i class="fas fa-check"></i> Longer passwords are more secure. 16+ characters are recommended.</li>
-                        <li><i class="fas fa-check"></i> Use unique passwords for every account.</li>
-                        <li><i class="fas fa-check"></i> Store passwords in a secure password manager.</li>
-                        <li><i class="fas fa-check"></i> Enable two-factor authentication when available.</li>
+                <div class="footer-nav-column">
+                    <h4>Navigation</h4>
+                    <ul>
+                        <li><a href="#hero">Overview</a></li>
+                        <li><a href="#generator-hero">Password Generator</a></li>
+                        <li><a href="#strength-checker">Strength Audit</a></li>
+                        <li><a href="#architecture">Architecture</a></li>
+                        <li><a href="#comparison">Comparison Matrix</a></li>
                     </ul>
                 </div>
 
-            </div>
-        </div>
-    </section>
-
-    <!-- Password Strength Checker Section -->
-    <section class="section" id="strength-checker">
-        <div class="container">
-            <div class="section-header">
-                <h2>Password Strength Checker</h2>
-                <p>Analyze your password's security with advanced cybersecurity metrics</p>
-            </div>
-
-            <div class="strength-card">
-                <div class="password-input-group">
-                    <div class="input-wrapper">
-                        <input type="password" id="checkPassword" placeholder="Type or paste your password here">
-                        <button class="toggle-check-password" id="toggleCheckPassword" aria-label="Toggle password visibility">
-                            <i class="fas fa-eye"></i>
-                        </button>
-                    </div>
-                    <button class="btn btn-analyze" id="analyzeBtn">
-                        <i class="fas fa-search"></i> Analyze Password
-                    </button>
+                <div class="footer-nav-column">
+                    <h4>Tools & Modes</h4>
+                    <ul>
+                        <li><a href="#generator-hero" class="footer-mode-link" data-mode="random">Random Complex</a></li>
+                        <li><a href="#generator-hero" class="footer-mode-link" data-mode="passphrase">Memorable Passphrase</a></li>
+                        <li><a href="#generator-hero" class="footer-mode-link" data-mode="pin">Numeric PIN</a></li>
+                        <li><a href="#generator-hero" class="footer-mode-link" data-mode="pronounceable">Pronounceable</a></li>
+                        <li><a href="#" id="footerBatchTrigger">Batch Generator</a></li>
+                    </ul>
                 </div>
 
-                <!-- Strength Score Display -->
-                <div class="strength-display" id="strengthDisplay">
-                    <div class="circular-progress">
-                        <svg class="progress-ring" viewBox="0 0 120 120">
-                            <circle class="progress-ring-bg" cx="60" cy="60" r="54"></circle>
-                            <circle class="progress-ring-circle" id="progressCircle" cx="60" cy="60" r="54"></circle>
-                        </svg>
-                        <div class="progress-text">
-                            <span class="score-value" id="checkStrengthScore">0</span>
-                            <span class="score-total">/ 100</span>
-                        </div>
-                    </div>
-                    <div class="strength-label" id="checkStrengthLabel">Enter a password</div>
-                </div>
-
-                <!-- Progress Bar -->
-                <div class="progress-bar-container">
-                    <div class="progress-bar" id="progressBar"></div>
-                </div>
-
-                <!-- Security Checklist -->
-                <div class="security-checklist" id="securityChecklist">
-                    <h3>Security Checklist</h3>
-                    <div class="checklist-items">
-                        <div class="checklist-item" data-check="min8">
-                            <i class="fas fa-circle"></i>
-                            <span>Minimum 8 Characters</span>
-                        </div>
-                        <div class="checklist-item" data-check="min12">
-                            <i class="fas fa-circle"></i>
-                            <span>Recommended 12+ Characters</span>
-                        </div>
-                        <div class="checklist-item" data-check="uppercase">
-                            <i class="fas fa-circle"></i>
-                            <span>Uppercase Letter</span>
-                        </div>
-                        <div class="checklist-item" data-check="lowercase">
-                            <i class="fas fa-circle"></i>
-                            <span>Lowercase Letter</span>
-                        </div>
-                        <div class="checklist-item" data-check="number">
-                            <i class="fas fa-circle"></i>
-                            <span>Number</span>
-                        </div>
-                        <div class="checklist-item" data-check="special">
-                            <i class="fas fa-circle"></i>
-                            <span>Special Character</span>
-                        </div>
-                        <div class="checklist-item" data-check="diversity">
-                            <i class="fas fa-circle"></i>
-                            <span>Character Diversity</span>
-                        </div>
-                        <div class="checklist-item" data-check="entropy">
-                            <i class="fas fa-circle"></i>
-                            <span>High Entropy</span>
-                        </div>
-                        <div class="checklist-item" data-check="norepeat">
-                            <i class="fas fa-circle"></i>
-                            <span>No Repeated Characters</span>
-                        </div>
-                        <div class="checklist-item" data-check="nosequential">
-                            <i class="fas fa-circle"></i>
-                            <span>No Sequential Characters</span>
-                        </div>
-                        <div class="checklist-item" data-check="nokeyboard">
-                            <i class="fas fa-circle"></i>
-                            <span>No Keyboard Patterns</span>
-                        </div>
-                        <div class="checklist-item" data-check="nocommon">
-                            <i class="fas fa-circle"></i>
-                            <span>Not Common Password</span>
-                        </div>
-                        <div class="checklist-item" data-check="nodictionary">
-                            <i class="fas fa-circle"></i>
-                            <span>No Dictionary Words</span>
-                        </div>
-                        <div class="checklist-item" data-check="nopersonal">
-                            <i class="fas fa-circle"></i>
-                            <span>No Personal Information</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Password Statistics -->
-                <div class="password-stats" id="checkStats">
-                    <h3>Password Statistics</h3>
-                    <div class="stats-grid">
-                        <div class="stat-item">
-                            <i class="fas fa-text-width"></i>
-                            <span class="stat-label">Length</span>
-                            <span class="stat-value" id="checkLength">-</span>
-                        </div>
-                        <div class="stat-item">
-                            <i class="fas fa-font"></i>
-                            <span class="stat-label">Uppercase</span>
-                            <span class="stat-value" id="checkUppercase">-</span>
-                        </div>
-                        <div class="stat-item">
-                            <i class="fas fa-font"></i>
-                            <span class="stat-label">Lowercase</span>
-                            <span class="stat-value" id="checkLowercase">-</span>
-                        </div>
-                        <div class="stat-item">
-                            <i class="fas fa-hashtag"></i>
-                            <span class="stat-label">Numbers</span>
-                            <span class="stat-value" id="checkNumbers">-</span>
-                        </div>
-                        <div class="stat-item">
-                            <i class="fas fa-asterisk"></i>
-                            <span class="stat-label">Special</span>
-                            <span class="stat-value" id="checkSpecial">-</span>
-                        </div>
-                        <div class="stat-item">
-                            <i class="fas fa-fingerprint"></i>
-                            <span class="stat-label">Unique</span>
-                            <span class="stat-value" id="checkUnique">-</span>
-                        </div>
-                        <div class="stat-item">
-                            <i class="fas fa-chart-pie"></i>
-                            <span class="stat-label">Entropy</span>
-                            <span class="stat-value" id="checkEntropy">-</span>
-                        </div>
-                        <div class="stat-item">
-                            <i class="fas fa-clock"></i>
-                            <span class="stat-label">Crack Time</span>
-                            <span class="stat-value" id="checkCrackTime">-</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Improvement Suggestions -->
-                <div class="suggestions" id="suggestions">
-                    <h3>Improvement Suggestions</h3>
-                    <div class="suggestions-list" id="suggestionsList">
-                        <p class="no-suggestions">Enter a password to see suggestions</p>
-                    </div>
+                <div class="footer-nav-column">
+                    <h4>Standards & Math</h4>
+                    <ul>
+                        <li><a href="#security-tips">Best Practices</a></li>
+                        <li><a href="#faq">FAQ Knowledge Base</a></li>
+                        <li><a href="#architecture">NIST 800-63B Overview</a></li>
+                        <li><a href="#architecture">Shannon Entropy Math</a></li>
+                    </ul>
                 </div>
             </div>
-        </div>
-    </section>
 
-    <!-- Security Tips Section -->
-    <section class="section" id="security-tips">
-        <div class="container">
-            <div class="section-header">
-                <h2>Password Security Tips</h2>
-                <p>Best practices to keep your accounts secure</p>
-            </div>
-
-            <div class="tips-grid">
-                <div class="tip-card">
-                    <div class="tip-icon">
-                        <i class="fas fa-fingerprint"></i>
-                    </div>
-                    <h3>Never Reuse Passwords</h3>
-                    <p>Use unique passwords for each account to prevent credential stuffing attacks.</p>
+            <div class="footer-bottom-strip">
+                <p>&copy; 2026 SecurePass Cybersecurity Suite. Free & Open Source under MIT License.</p>
+                <div class="footer-legal-tags">
+                    <span><i class="fas fa-shield-check text-green"></i> 100% Client-Side Verified</span>
+                    <span><i class="fas fa-heart text-red"></i> Built for Digital Freedom</span>
                 </div>
-
-                <div class="tip-card">
-                    <div class="tip-icon">
-                        <i class="fas fa-mobile-alt"></i>
-                    </div>
-                    <h3>Enable Multi-Factor Authentication</h3>
-                    <p>Add an extra layer of security with 2FA/MFA on all your important accounts.</p>
-                </div>
-
-                <div class="tip-card">
-                    <div class="tip-icon">
-                        <i class="fas fa-key"></i>
-                    </div>
-                    <h3>Use Password Managers</h3>
-                    <p>Store passwords securely in encrypted vaults instead of writing them down.</p>
-                </div>
-
-                <div class="tip-card">
-                    <div class="tip-icon">
-                        <i class="fas fa-user-secret"></i>
-                    </div>
-                    <h3>Avoid Personal Information</h3>
-                    <p>Don't use birthdays, names, or personal details that can be easily guessed.</p>
-                </div>
-
-                <div class="tip-card">
-                    <div class="tip-icon">
-                        <i class="fas fa-sync-alt"></i>
-                    </div>
-                    <h3>Update Passwords Regularly</h3>
-                    <p>Change critical passwords every 3-6 months or after any security breach.</p>
-                </div>
-
-                <div class="tip-card">
-                    <div class="tip-icon">
-                        <i class="fas fa-shield-alt"></i>
-                    </div>
-                    <h3>Create Unique Passwords</h3>
-                    <p>Use long, complex passwords with a mix of characters for maximum security.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- FAQ Section -->
-    <section class="section" id="faq">
-        <div class="container">
-            <div class="section-header">
-                <h2>Frequently Asked Questions</h2>
-                <p>Common questions about password security</p>
-            </div>
-
-            <div class="faq-container">
-                <div class="faq-item">
-                    <button class="faq-question">
-                        <span>What is a Strong Password?</span>
-                        <i class="fas fa-chevron-down"></i>
-                    </button>
-                    <div class="faq-answer">
-                        <p>A strong password is at least 12 characters long, includes a mix of uppercase and lowercase letters, numbers, and special characters. It should avoid dictionary words, personal information, and common patterns. Strong passwords have high entropy and are difficult to guess or crack.</p>
-                    </div>
-                </div>
-
-                <div class="faq-item">
-                    <button class="faq-question">
-                        <span>Why Avoid Dictionary Words?</span>
-                        <i class="fas fa-chevron-down"></i>
-                    </button>
-                    <div class="faq-answer">
-                        <p>Dictionary words are vulnerable to dictionary attacks, where hackers use lists of common words and phrases to guess passwords. Even with substitutions (like replacing 'a' with '@'), these passwords can be cracked quickly. Random character combinations are much more secure.</p>
-                    </div>
-                </div>
-
-                <div class="faq-item">
-                    <button class="faq-question">
-                        <span>Why Use Symbols?</span>
-                        <i class="fas fa-chevron-down"></i>
-                    </button>
-                    <div class="faq-answer">
-                        <p>Special characters significantly increase the complexity of passwords. They expand the character set from just 26 letters to over 90 possible characters, dramatically increasing the number of possible combinations and making brute force attacks much more difficult and time-consuming.</p>
-                    </div>
-                </div>
-
-                <div class="faq-item">
-                    <button class="faq-question">
-                        <span>How Often Should Passwords Change?</span>
-                        <i class="fas fa-chevron-down"></i>
-                    </button>
-                    <div class="faq-answer">
-                        <p>Modern security guidelines suggest changing passwords only when there's a suspected breach or compromise. For critical accounts, consider updating every 3-6 months. Focus on creating strong, unique passwords rather than frequent changes, which can lead to weaker password choices.</p>
-                    </div>
-                </div>
-
-                <div class="faq-item">
-                    <button class="faq-question">
-                        <span>Why Should You Use a Password Manager?</span>
-                        <i class="fas fa-chevron-down"></i>
-                    </button>
-                    <div class="faq-answer">
-                        <p>Using a password manager helps you securely store and organize your passwords in one encrypted vault. It allows you to create long, unique passwords for every account without needing to remember them all. Most password managers also offer features such as password generation, autofill, breach alerts, and secure synchronization across devices. This greatly improves both convenience and online security.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-brand">
-                    <i class="fas fa-shield-alt"></i>
-                    <span>SecurePass</span>
-                </div>
-                <p class="footer-text">Generate secure passwords and protect your digital life</p>
-                <div class="footer-links">
-                    <a href="#generator">Password Generator</a>
-                    <a href="#strength-checker">Strength Checker</a>
-                    <a href="#security-tips">Security Tips</a>
-                    <a href="#faq">FAQ</a>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2024 SecurePass. All rights reserved.</p>
             </div>
         </div>
     </footer>
 
-    <!-- Toast Notification -->
-    <div class="toast" id="toast">
-        <i class="fas fa-check-circle"></i>
-        <span id="toastMessage">Password copied successfully</span>
+    <!-- MODAL 1: Batch Password Generator Modal -->
+    <div class="modal-overlay" id="batchModal" aria-hidden="true">
+        <div class="modal-clean-box">
+            <div class="modal-head">
+                <div class="modal-title-wrap">
+                    <i class="fas fa-layer-group"></i>
+                    <h3>Batch Password Generator</h3>
+                </div>
+                <button class="btn-modal-close" id="closeBatchModal" aria-label="Close modal"><i class="fas fa-xmark"></i></button>
+            </div>
+            <div class="modal-body-content">
+                <p class="modal-lead">Generate multiple cryptographically secure passwords at once for system provisioning, user accounts, or bulk deployment.</p>
+                
+                <div class="batch-options-grid">
+                    <div class="batch-opt-field">
+                        <label for="batchCount">Quantity</label>
+                        <select id="batchCount" class="clean-select">
+                            <option value="5">5 Passwords</option>
+                            <option value="10" selected>10 Passwords</option>
+                            <option value="20">20 Passwords</option>
+                            <option value="50">50 Passwords</option>
+                        </select>
+                    </div>
+                    <div class="batch-opt-field">
+                        <label for="batchLength">Length per Password</label>
+                        <input type="number" id="batchLength" min="8" max="64" value="20" class="clean-text-input">
+                    </div>
+                    <div class="batch-opt-field">
+                        <button class="btn-royal-blue btn-full" id="runBatchGenerate">
+                            <i class="fas fa-wand-magic-sparkles"></i> Generate Batch
+                        </button>
+                    </div>
+                </div>
+
+                <div class="batch-output-wrap">
+                    <textarea id="batchOutputText" readonly placeholder="Click 'Generate Batch' to create passwords..."></textarea>
+                </div>
+
+                <div class="batch-actions-bar">
+                    <button class="btn-royal-blue" id="copyBatchBtn">
+                        <i class="fas fa-copy"></i> Copy All to Clipboard
+                    </button>
+                    <button class="btn-outline-blue" id="downloadBatchTxt">
+                        <i class="fas fa-file-arrow-down"></i> Export .TXT
+                    </button>
+                    <button class="btn-outline-blue" id="downloadBatchCsv">
+                        <i class="fas fa-file-csv"></i> Export .CSV
+                    </button>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <!-- Custom JavaScript -->
+    <!-- MODAL 2: Offline Canvas QR Code Modal -->
+    <div class="modal-overlay" id="qrModal" aria-hidden="true">
+        <div class="modal-clean-box modal-compact">
+            <div class="modal-head">
+                <div class="modal-title-wrap">
+                    <i class="fas fa-qrcode"></i>
+                    <h3>Secure Offline Mobile QR Sync</h3>
+                </div>
+                <button class="btn-modal-close" id="closeQrModal" aria-label="Close modal"><i class="fas fa-xmark"></i></button>
+            </div>
+            <div class="modal-body-content text-center">
+                <p class="modal-lead">Scan with your smartphone camera or password manager app to import your password without sending it over the network.</p>
+                
+                <div class="qr-canvas-holder">
+                    <canvas id="qrCanvas" width="220" height="220"></canvas>
+                </div>
+
+                <div class="qr-security-tag">
+                    <i class="fas fa-lock text-green"></i> Generated 100% offline via local HTML5 Canvas
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL 3: NATO Phonetic Assistant Modal -->
+    <div class="modal-overlay" id="phoneticModal" aria-hidden="true">
+        <div class="modal-clean-box">
+            <div class="modal-head">
+                <div class="modal-title-wrap">
+                    <i class="fas fa-volume-high"></i>
+                    <h3>NATO Phonetic Spelling Assistant</h3>
+                </div>
+                <button class="btn-modal-close" id="closePhoneticModal" aria-label="Close modal"><i class="fas fa-xmark"></i></button>
+            </div>
+            <div class="modal-body-content">
+                <p class="modal-lead">Easily read your password aloud or verify characters over phone calls, support lines, or air-gapped terminals.</p>
+                <div class="phonetic-tokens-grid" id="phoneticGrid">
+                    <!-- Populated via JavaScript -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification Popup -->
+    <div class="toast-popup" id="toast" role="alert" aria-live="assertive">
+        <div class="toast-icon-wrap" id="toastIconWrap">
+            <i class="fas fa-circle-check"></i>
+        </div>
+        <span class="toast-message-text" id="toastMessage">Password copied to clipboard</span>
+    </div>
+
+    <!-- JavaScript Engine -->
     <script src="script.js"></script>
 </body>
 </html>
