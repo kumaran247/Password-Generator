@@ -36,7 +36,6 @@
   <a href="#-getting-started">Getting Started</a> •
   <a href="#-usage--keyboard-shortcuts">Usage</a> •
   <a href="#-screenshots">Screenshots</a> •
-  <a href="#-author">Author</a> •
   <a href="#-license">License</a>
 </p>
 
@@ -151,8 +150,11 @@ To run SecurePass locally on your computer:
 ## 📸 Screenshots
 
 <div align="center">
-  <h3>✨ Desktop Application Preview</h3>
-  <img src="./assets/preview.png" alt="SecurePass UI Screenshot" width="90%" style="border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.3);"/>
+  <h3>✨ Live Embedded Password Generator</h3>
+  <img src="./assets/generator-preview.png" alt="SecurePass Generator Preview" width="92%" style="border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); margin-bottom: 30px;"/>
+
+  <h3>🛡️ Real-Time Password Strength & Entropy Audit</h3>
+  <img src="./assets/audit-preview.png" alt="Password Strength Checker Preview" width="92%" style="border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.3);"/>
 </div>
 
 ---
@@ -169,21 +171,6 @@ Contributions, issues, and feature requests are welcome!
 
 ---
 
-## 👤 Author
-
-**Kumaran R T**
-
-- GitHub: [@kumaran247](https://github.com/kumaran247)
-- Repository: [Password-Generator](https://github.com/kumaran247/Password-Generator)
-
----
-
 ## 📄 License
 
 This project is licensed under the **MIT License** — see the [LICENSE](LICENSE) file for details.
-
----
-
-<div align="center">
-  <p>Made with ❤️ by <a href="https://github.com/kumaran247">Kumaran R T</a></p>
-</div>
