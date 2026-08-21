@@ -1155,29 +1155,6 @@ code {
     color: var(--text-muted);
 }
 
-.carousel-dots-row {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    margin-top: 30px;
-}
-
-.c-dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background: #CBD5E1;
-    cursor: pointer;
-    transition: var(--transition);
-}
-
-.c-dot.active {
-    background: var(--brand-blue);
-    width: 22px;
-    border-radius: var(--radius-pill);
-}
-
 /* =========================================================
    Password Strength Audit Section
    ========================================================= */

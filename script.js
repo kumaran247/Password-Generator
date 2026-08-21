@@ -106,7 +106,6 @@ document.addEventListener('DOMContentLoaded', () => {
     initEventListeners();
     initSliders();
     generatePassword(); // Initial generation on load
-    initCarouselDots();
 });
 
 // =========================================================
@@ -1232,19 +1231,6 @@ function drawSimpleOfflineQR(canvas, text) {
             }
         }
     }
-}
-
-// =========================================================
-// Trust Carousel Dots
-// =========================================================
-function initCarouselDots() {
-    const dots = document.querySelectorAll('.c-dot');
-    dots.forEach((dot, idx) => {
-        dot.addEventListener('click', () => {
-            dots.forEach(d => d.classList.remove('active'));
-            dot.classList.add('active');
-        });
-    });
 }
 
 // =========================================================
