@@ -76,11 +76,6 @@ Engineered with strict **zero-knowledge architecture**, SecurePass guarantees th
 - **NATO Phonetic Assistant**: Spells out password characters for phone and verbal verification.
 - **Session Password Vault**: History ledger stored in `sessionStorage` with 1-click reload, copy, delete, and purge.
 
-### 🎨 1Password-Inspired UI/UX
-- Deep Royal Navy hero layout (`#0A173B`) with live embedded generator card.
-- Monospace color-coded character syntax (Numbers in Royal Blue, Symbols in Amber, Letters in Dark Navy).
-- Seamless Dark and Light theme adaptability with persistent preferences.
-
 ---
 
 ## 👩‍💻 Tech Stack
