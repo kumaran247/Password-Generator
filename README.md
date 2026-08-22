@@ -162,6 +162,8 @@ This project is licensed under the **MIT License** — see the [LICENSE](LICENSE
 # 👤 Author
 
 Kumaran R T
+
 GitHub: https://github.com/kumaran247
+
 Linked In: https://www.linkedin.com/in/kumaran24/
 
