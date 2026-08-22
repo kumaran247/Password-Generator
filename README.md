@@ -157,3 +157,11 @@ To run SecurePass locally on your computer:
 ## 📄 License
 
 This project is licensed under the **MIT License** — see the [LICENSE](LICENSE) file for details.
+
+---
+# 👤 Author
+
+Kumaran R T
+GitHub: https://github.com/kumaran247
+Linked In: https://www.linkedin.com/in/kumaran24/
+
